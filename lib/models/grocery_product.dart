@@ -35,7 +35,7 @@ const groceryProducts = <GroceryProduct> [
 
     GroceryProduct(
        price: 200.00, 
-       name: 'Manga' ,
+       name: 'Goibas' ,
        description: 'A melhor Manga do Lubango agora mais proximo de si com apenas um click',
        image: 'assets/images/goibas.jpg',
        //image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMim4YODZ5sWpJi9ewRGTiQMnRa-Z6UKv0AeOlZ3S-emWbr4krszYmARQWIKzajYmAIMA&usqp=CAU',

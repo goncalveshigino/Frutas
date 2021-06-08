@@ -33,10 +33,22 @@ class GroceryStoreBlock  with ChangeNotifier {
     notifyListeners();
  }
 
+ void deleteProduct( GroceryProductItem productItem){
+   
+    cart.remove(productItem);
+    notifyListeners();
+ }
+
+ 
+
 
  int totalCartElement() => cart.fold<int>(
   0, 
  (previousValue, element) => previousValue + element.quantity);
+
+  double totalPricetElement() => cart.fold<double>(
+  0.0, 
+ (previousValue, element) => previousValue + (element.quantity * element.product.price));
 
 }
 
@@ -52,5 +64,5 @@ class GroceryProductItem {
      quantity++;
    }
 
-   void decrement(){}
+  // void decrement(){}
 }
