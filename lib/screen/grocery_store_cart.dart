@@ -1,9 +1,16 @@
-import 'package:eu_kero/models/grocery_provider.dart';
 import 'package:flutter/material.dart';
 
+import 'package:eu_kero/models/grocery_product.dart';
+import 'package:eu_kero/models/grocery_provider.dart';
+
 class GroceryStoreCart extends StatelessWidget {
+
+
+ 
+
   @override
   Widget build(BuildContext context) {
+
     final bloc = GroceryProvider.of(context).bloc;
 
     return Column(
@@ -25,52 +32,77 @@ class GroceryStoreCart extends StatelessWidget {
                     itemCount: bloc.cart.length,
                     itemBuilder: (context, index) {
                       final item = bloc.cart[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.white,
-                              backgroundImage: AssetImage(item.product.image),
+                      return Container(
+                        child: Dismissible(
+                          key: Key('item'),
+                          onDismissed: (direction){
+                            bloc.deleteProduct(item);
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //     SnackBar( 
+                            //       content:  Text('Eliminado'),
+                            //       backgroundColor: Colors.red,
+                            //     ),
+                            // );
+                          },
+                          resizeDuration: Duration(milliseconds: 800),
+                          background: Container(
+                            color: Colors.red,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(
+                                  Icons.delete_forever, 
+                                  color: Colors.white
+                              )
                             ),
-                            const SizedBox(
-                              width: 15.0,
-                            ),
-                            Text(
-                              item.quantity.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            const SizedBox(
-                              width: 15.0,
-                            ),
-                            Text(
-                              'X',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            const SizedBox(
-                              width: 15.0,
-                            ),
-                            Text(
-                              item.product.name,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Spacer(),
-                            Text(
-                              '\$${(item.product.price * item.quantity).toStringAsFixed(2)}',
-                              style: TextStyle(color: Colors.white),
-                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15.0),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: AssetImage(item.product.image),
+                                ),
+                                const SizedBox(
+                                  width: 15.0,
+                                ),
+                                Text(
+                                  item.quantity.toString(),
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                const SizedBox(
+                                  width: 15.0,
+                                ),
+                                Text(
+                                  'X',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                const SizedBox(
+                                  width: 15.0,
+                                ),
+                                Text(
+                                  item.product.name,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Spacer(),
+                                Text(
+                                  '\$${(item.product.price * item.quantity).toStringAsFixed(2)}',
+                                  style: TextStyle(color: Colors.white),
+                                ),
 
-                            //Tirar esse icon
-                            IconButton(
-                              icon: Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                bloc.deleteProduct(item);
-                              },
-                            )
-                          ],
+                                //Tirar esse icon
+                                // IconButton(
+                                //   icon: Icon(
+                                //     Icons.delete,
+                                //     color: Colors.white,
+                                //   ),
+                                //   onPressed: () {
+                                //     bloc.deleteProduct(item);
+                                //   },
+                                // )
+                              ],
+                            ),
+                          ),
                         ),
                       );
                     },
